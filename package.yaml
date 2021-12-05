@@ -1,0 +1,36 @@
+name:                Aoc2021
+version:             0.1.0.0
+github:              "christheblog/aoc-2021"
+license:             BSD3
+author:              "ChrisTheBlog"
+maintainer:          "example@example.com"
+copyright:           "2021 ChrisTheBlog"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/christheblog/Aoc2021#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  Aoc2021-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - Aoc2021
