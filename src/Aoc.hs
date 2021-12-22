@@ -1,7 +1,19 @@
-module Aoc(readData, parseInt, chunksOf, splitOn, count, replace, replaceSubOne, nonEmpty, orf, andf) where
+module Aoc(readData,
+  parseInt,
+  chunksOf,
+  splitOn,
+  count,
+  replace,
+  replaceSubOne,
+  nonEmpty,
+  orf,
+  andf,
+  sortDesc) where
 
 import System.IO
 import Control.Monad
+import Data.Ord
+import Data.Sort
 
 {-- Parsing helpers --}
 
@@ -55,6 +67,8 @@ replaceSubOne pat repl ls = replaceSub [] [] pat ls
       if p==x then replaceSub rem (matched ++ [p]) ps xs
       else replaceSub (rem ++ [head full]) [] pat (tail full)
 
+sortDesc :: Ord a => [a] -> [a]
+sortDesc = sortBy (comparing Down)
 
 
 {-- Function helpers --}
