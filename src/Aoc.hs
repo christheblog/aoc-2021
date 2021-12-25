@@ -5,6 +5,8 @@ module Aoc(readData,
   count,
   replace,
   replaceSubOne,
+  updateAt,
+  mapAt,
   nonEmpty,
   orf,
   andf,
@@ -66,6 +68,14 @@ replaceSubOne pat repl ls = replaceSub [] [] pat ls
       let full = matched ++ (x:xs) in
       if p==x then replaceSub rem (matched ++ [p]) ps xs
       else replaceSub (rem ++ [head full]) [] pat (tail full)
+
+updateAt :: Int -> a -> [a] -> [a]
+updateAt index x xs =
+  let (left, right) = splitAt index xs in left ++ [x] ++ (tail right)
+
+mapAt :: Int -> (a -> a) -> [a] -> [a]
+mapAt index f xs =
+  let (left, right) = splitAt index xs in left ++ [f . head $ right] ++ (tail right)
 
 sortDesc :: Ord a => [a] -> [a]
 sortDesc = sortBy (comparing Down)
