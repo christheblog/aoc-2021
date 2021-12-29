@@ -31,7 +31,7 @@ solve :: (Path -> Bool) -> IO Int
 solve p = do
   graph <- readInput "./resources/day12.txt"
   let paths = allPaths p $ graph
-  return (length paths)
+  return paths
 
 {-- Helpers --}
 
@@ -39,14 +39,14 @@ startNode = Small "start"
 endNode   = Small "end"
 
 -- Optimized DFS eliminating early duplicate and invalid paths
-allPaths :: (Path -> Bool) -> Graph -> [Path]
-allPaths valid g = dfs [[startNode]] []
+allPaths :: (Path -> Bool) -> Graph -> Int
+allPaths valid g = dfs [[startNode]] 0
   where
-    dfs [] acc = nubOrd acc
+    dfs [] acc = acc
     dfs (path:ps) acc = dfs newStack newAcc
       where
         newPaths = map (:path) . (filter (/=startNode)) . children (head path) $ g
-        newAcc = if null finished then acc else (finished ++ acc)
+        newAcc = if null finished then acc else acc + 1
         (finished, unfinished) = partition ((==endNode) . head) newPaths
         validUnfinished = filter (valid) unfinished
         newStack = if null validUnfinished then ps else nubOrd (validUnfinished ++ ps)
