@@ -3,7 +3,7 @@ module Main where
 import System.Environment
 import System.IO
 
-import Day11
+import Day12
 
 main :: IO ()
 main = do

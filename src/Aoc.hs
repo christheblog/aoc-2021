@@ -2,6 +2,7 @@ module Aoc(readData,
   parseInt,
   chunksOf,
   splitOn,
+  nubOrd,
   count,
   replace,
   replaceSubOne,
@@ -16,6 +17,8 @@ import System.IO
 import Control.Monad
 import Data.Ord
 import Data.Sort
+import Data.List
+import qualified Data.Map as M
 
 {-- Parsing helpers --}
 
@@ -80,6 +83,11 @@ mapAt index f xs =
 sortDesc :: Ord a => [a] -> [a]
 sortDesc = sortBy (comparing Down)
 
+-- A faster nub for Ord elements (nub is O(n^2)
+nubOrd:: Ord a => [a] -> [a]
+nubOrd = reverse . snd . foldl' (step) (M.empty, [])
+  where
+    step (visited, res) x = if M.notMember x visited then (M.insert x () visited, x:res) else (visited, res)
 
 {-- Function helpers --}
 
